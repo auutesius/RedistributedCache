@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./cacheClient"
+	"./benchmark"
 	"flag"
 	"fmt"
 	"math/rand"
@@ -54,7 +54,7 @@ func (r *result) addResult(src *result) {
 	r.setCount += src.setCount
 }
 
-func run(client cacheClient.Client, c *cacheClient.Cmd, r *result) {
+func run(client benchmark.Client, c *benchmark.Cmd, r *result) {
 	expect := c.Value
 	start := time.Now()
 	client.Run(c)
@@ -70,7 +70,7 @@ func run(client cacheClient.Client, c *cacheClient.Cmd, r *result) {
 	r.addDuration(d, resultType)
 }
 
-func pipeline(client cacheClient.Client, cmds []*cacheClient.Cmd, r *result) {
+func pipeline(client benchmark.Client, cmds []*benchmark.Cmd, r *result) {
 	expect := make([]string, len(cmds))
 	for i, c := range cmds {
 		if c.Name == "get" {
@@ -95,8 +95,8 @@ func pipeline(client cacheClient.Client, cmds []*cacheClient.Cmd, r *result) {
 }
 
 func operate(id, count int, ch chan *result) {
-	client := cacheClient.New(typ, server)
-	cmds := make([]*cacheClient.Cmd, 0)
+	client := benchmark.New(typ, server)
+	cmds := make([]*benchmark.Cmd, 0)
 	valuePrefix := strings.Repeat("a", valueSize)
 	r := &result{0, 0, 0, make([]statistic, 0)}
 	for i := 0; i < count; i++ {
@@ -116,12 +116,12 @@ func operate(id, count int, ch chan *result) {
 				name = "get"
 			}
 		}
-		c := &cacheClient.Cmd{name, key, value, nil}
+		c := &benchmark.Cmd{name, key, value, nil}
 		if pipelen > 1 {
 			cmds = append(cmds, c)
 			if len(cmds) == pipelen {
 				pipeline(client, cmds, r)
-				cmds = make([]*cacheClient.Cmd, 0)
+				cmds = make([]*benchmark.Cmd, 0)
 			}
 		} else {
 			run(client, c, r)

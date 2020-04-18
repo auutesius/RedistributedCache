@@ -1,4 +1,4 @@
-package cacheClient
+package benchmark
 
 type Cmd struct {
 	Name  string

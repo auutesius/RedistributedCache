@@ -1,4 +1,4 @@
-package cacheClient
+package benchmark
 
 import (
 	"github.com/go-redis/redis"
