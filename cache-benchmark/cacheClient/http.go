@@ -1,4 +1,4 @@
-package benchmark
+package cacheClient
 
 import (
 	"io/ioutil"
