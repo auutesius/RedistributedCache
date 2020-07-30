@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../cache-benchmark/cacheClient"
+	"cache-benchmark/cacheClient"
 	"flag"
 	"fmt"
 )

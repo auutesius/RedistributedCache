@@ -1,12 +1,12 @@
 package main
 
 import (
-	"./cache"
-	"./cluster"
-	"./http"
-	"./tcp"
 	"flag"
 	"log"
+	"server/cache"
+	"server/cluster"
+	"server/http"
+	"server/tcp"
 )
 
 func main() {

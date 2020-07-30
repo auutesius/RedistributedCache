@@ -1,9 +1,9 @@
 package tcp
 
 import (
-	"../cache"
-	"../cluster"
 	"net"
+	"server/cache"
+	"server/cluster"
 )
 
 type Server struct {

@@ -1,9 +1,9 @@
 package http
 
 import (
-	"../cache"
-	"../cluster"
 	"net/http"
+	"server/cache"
+	"server/cluster"
 )
 
 type Server struct {
